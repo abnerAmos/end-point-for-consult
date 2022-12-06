@@ -58,5 +58,4 @@ public class GetController {
     public List<Client> findParam() {
         return list().stream().filter(e -> e.getAge() >= 50).collect(Collectors.toList());
     }
-
 }
