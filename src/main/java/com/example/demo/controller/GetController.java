@@ -52,12 +52,6 @@ public class GetController {
         return testRepository.findAll(pageable);
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/pagable-fix")
-    public Page<Client> listPageableFix() {
-        return null;
-    }
-
     /* Filtrando a busca de um Objeto com stream */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/find-with-param")
