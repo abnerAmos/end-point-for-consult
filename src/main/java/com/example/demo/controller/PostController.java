@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.ClientNotFoundException;
 import com.example.demo.model.Client;
 import com.example.demo.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,14 @@ public class PostController {
 
         testRepository.save(client);
         return client;
+    }
+
+    /* Filtrando uma busca com Post, informando o Dado a ser buscado no postman */
+    @PostMapping("/find-by-name")
+    public Client findNameOrEmail(@RequestBody Client filtro) {
+        return testRepository.findByNameOrEmail(filtro.getName(), filtro.getEmail()).orElseThrow(() -> {
+            throw new ClientNotFoundException("CLIENTE NAO ENCONTRADO");
+        });
     }
 }
 

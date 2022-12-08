@@ -60,11 +60,4 @@ public class GetController {
         return list().stream().filter(e -> e.getAge() >= 50).collect(Collectors.toList());
     }
 
-    /* Filtrando uma busca com Post, informando o Dado a ser buscado no postman */
-	@PostMapping("/find-by-name")
-	public Client findNameOrEmail(@RequestBody Client filtro) {
-		return testRepository.findByNameOrEmail(filtro.getName(), filtro.getEmail()).orElseThrow(() -> {
-			throw new ClientNotFoundException("CLIENTE NAO ENCONTRADO");
-		});
-	}
 }
