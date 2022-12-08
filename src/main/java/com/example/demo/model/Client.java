@@ -1,9 +1,7 @@
 package com.example.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.example.demo.enums.Status;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +9,7 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 
 @Entity // Transforma a Classe em Bean do Spring, necessário para persistir dados.
 @Table(name = "test")   // Necessário informa o nome da tabela que irá persistir.
@@ -21,4 +20,7 @@ public class Client {
     private Integer id;
     private String name;
     private Integer age;
+    private String email;
+    @Enumerated(EnumType.STRING) // Anotação para converter um ENUM para busca ou persistencia
+    private Status status;
 }
