@@ -4,16 +4,17 @@ import com.example.demo.enums.Status;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Data
-@ToString
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 
 @Entity // Transforma a Classe em Bean do Spring, necessário para persistir dados.
-@Table(name = "test")   // Necessário informa o nome da tabela que irá persistir.
-public class Client {
+@Table(name = "client")   // Necessário informa o nome da tabela que irá persistir.
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +24,5 @@ public class Client {
     private String email;
     @Enumerated(EnumType.STRING) // Anotação para converter um ENUM para busca ou persistencia
     private Status status;
+
 }

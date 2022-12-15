@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.exception.ClientNotFoundException;
 import com.example.demo.model.Client;
-import com.example.demo.repository.TestRepository;
+import com.example.demo.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 public class GetController {
 
     @Autowired
-    private TestRepository testRepository;
+    private ClientRepository clientRepository;
 
     /* Apenas um retorno em texto String */
     @ResponseStatus(HttpStatus.OK)
@@ -33,14 +32,14 @@ public class GetController {
     @ResponseStatus(HttpStatus.OK) // Forma de retorno de Status HTTP
     @GetMapping("/get/{id}")
     public Optional<Client> findById(@PathVariable("id") Integer id) {
-        return testRepository.findById(id);
+        return clientRepository.findById(id);
     }
 
     /* Retorna a lista de Objetos */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/list")
     public List<Client> list() {
-        return testRepository.findAll();
+        return clientRepository.findAll();
     }
 
     /* Get para paginação:
@@ -50,7 +49,7 @@ public class GetController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/pageable")
     public Page<Client> listPageable(Pageable pageable) {
-        return testRepository.findAll(pageable);
+        return clientRepository.findAll(pageable);
     }
 
     /* Filtrando a busca de um Objeto com stream */
