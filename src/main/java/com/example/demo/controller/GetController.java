@@ -2,9 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Client;
 import com.example.demo.repository.ClientRepository;
+import com.example.demo.repository.DependentsRepository;
 import com.example.demo.service.CreateExcelService;
 import com.example.demo.service.ReadExcelService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,11 @@ import java.util.stream.Collectors;
 /* Informa e transforma a classe em um Controller */
 @RestController
 @RequestMapping("/test")
+@RequiredArgsConstructor
 public class GetController {
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
+    private final DependentsRepository dependentsRepository;
 
     /* Apenas um retorno em texto String */
     @ResponseStatus(HttpStatus.OK)
@@ -59,7 +61,8 @@ public class GetController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/find-with-param")
     public List<Client> findParam() {
-        return list().stream().filter(e -> e.getAge() >= 50).collect(Collectors.toList());
+        List<Client> listClient = clientRepository.findAll();
+        return listClient.stream().filter(e -> e.getAge() >= 50).collect(Collectors.toList());
     }
 
     /* Criando um arquivo Excel, a partir dos dados em Banco,
