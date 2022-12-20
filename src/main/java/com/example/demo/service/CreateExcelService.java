@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-public class CreateExcel {
+public class CreateExcelService {
 
     public void createFile(final String fileName, final List<Client> client) throws IOException {
         log.info("Gerando o arquivo: {}", fileName);

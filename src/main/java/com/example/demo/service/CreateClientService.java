@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CreateClientServiceImpl {
+public class CreateClientService {
 
     private final ClientRepository clientRepository;
     private final DependentsRepository dependentsRepository;

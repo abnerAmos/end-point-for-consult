@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.controller.request.Request;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DependentsRepository;
-import com.example.demo.service.CreateClientServiceImpl;
+import com.example.demo.service.CreateClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ public class PostController {
 
     private final ClientRepository clientRepository;
     private final DependentsRepository dependentsRepository;
-    private final CreateClientServiceImpl createClientService;
+    private final CreateClientService createClientService;
 
     /* Inserindo dados na tabela
     * Necessário no corpo do Json, informar os dados a serem inclusos no Banco conforme Model

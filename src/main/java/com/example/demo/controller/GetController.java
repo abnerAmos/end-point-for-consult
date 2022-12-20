@@ -2,7 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Client;
 import com.example.demo.repository.ClientRepository;
-import com.example.demo.service.CreateExcel;
+import com.example.demo.service.CreateExcelService;
+import com.example.demo.service.ReadExcelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,12 +62,24 @@ public class GetController {
         return list().stream().filter(e -> e.getAge() >= 50).collect(Collectors.toList());
     }
 
+    /* Criando um arquivo Excel, a partir dos dados em Banco,
+    informando apenas um nome para o arquivo */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/create-excel/{fileName}")
     public List<Client> generateExcel(@PathVariable String fileName) throws IOException {
-        CreateExcel createExcel = new CreateExcel();
+        CreateExcelService createExcelService = new CreateExcelService();
         String extension = ".xlsx";
-        createExcel.createFile(fileName + extension, clientRepository.findAll());
+        createExcelService.createFile(fileName + extension, clientRepository.findAll());
         return clientRepository.findAll();
+    }
+
+    /* Lendo um arquivo Excel, a partir de um ".xlsx",
+    informando apenas o nome do arquivo */
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/read-excel/{fileName}")
+    public List<Client> readExcel(@PathVariable String fileName) throws IOException {
+        ReadExcelService readExcelService = new ReadExcelService();
+        String extension = ".xlsx";
+        return readExcelService.readFile(fileName + extension);
     }
 }
