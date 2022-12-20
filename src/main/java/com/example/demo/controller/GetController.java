@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Client;
 import com.example.demo.repository.ClientRepository;
+import com.example.demo.service.CreateExcel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,4 +61,12 @@ public class GetController {
         return list().stream().filter(e -> e.getAge() >= 50).collect(Collectors.toList());
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/create-excel/{fileName}")
+    public List<Client> generateExcel(@PathVariable String fileName) throws IOException {
+        CreateExcel createExcel = new CreateExcel();
+        String extension = ".xlsx";
+        createExcel.createFile(fileName + extension, clientRepository.findAll());
+        return clientRepository.findAll();
+    }
 }
