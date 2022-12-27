@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,8 +14,10 @@ import java.io.IOException;
 import java.util.List;
 
 @Slf4j
+@Service
 public class CreateExcelService {
 
+    // Possivel substituir o "throws IOException" por "@SneakThrows" do Lombok
     public void createFile(final String fileName, final List<Client> client) throws IOException {
         log.info("Gerando o arquivo: {}", fileName);
 

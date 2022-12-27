@@ -4,14 +4,17 @@ import com.example.demo.model.Client;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DependentsRepository;
 import com.example.demo.service.CreateExcelService;
+import com.example.demo.service.GenerateJsonService;
 import com.example.demo.service.ReadExcelService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +30,6 @@ public class GetController {
     private final DependentsRepository dependentsRepository;
 
     /* Apenas um retorno em texto String */
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public ResponseEntity<String> greeting() {
         return ResponseEntity.ok("Hello World"); // Forma de retorno de Status HTTP
@@ -85,4 +87,14 @@ public class GetController {
         String extension = ".xlsx";
         return readExcelService.readFile(fileName + extension);
     }
+
+    /*  Captura um Objeto e o converte em .JSON, e o armazena no Header
+    como anexo (attachment), para Download.     */
+    @GetMapping("/download/{id}")
+    // Caso não queira retorno, mudar o método para void, inserir @ResponseStatus
+    public ResponseEntity<?> downloadJson(@PathVariable Integer id, HttpServletResponse response) {
+        GenerateJsonService generateJsonService = new GenerateJsonService();
+        return generateJsonService.downloadJson(id, response);
+    }
+
 }
