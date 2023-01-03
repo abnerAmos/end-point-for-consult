@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.controller.request.Request;
+import com.example.demo.request.RequestClient;
 import com.example.demo.model.Client;
 import com.example.demo.model.Dependents;
 import com.example.demo.repository.ClientRepository;
@@ -17,19 +17,19 @@ public class CreateClientService {
     private final ClientRepository clientRepository;
     private final DependentsRepository dependentsRepository;
 
-    public ResponseEntity<?> createClient(Request request) {
+    public ResponseEntity<?> createClient(RequestClient requestClient) {
 
         Client client = Client.builder()
-                .name(request.getName())
-                .age(request.getAge())
-                .email(request.getEmail())
-                .status(request.getStatus())
+                .name(requestClient.getName())
+                .age(requestClient.getAge())
+                .email(requestClient.getEmail())
+                .status(requestClient.getStatus())
                 .build();
         Client saveClient = clientRepository.save(client);
 
         Dependents dependents = Dependents.builder()
-                .name_dp(request.getName_dp())
-                .age_dp(request.getAge_dp())
+                .name_dp(requestClient.getName_dp())
+                .age_dp(requestClient.getAge_dp())
                 .client(saveClient)
                 .build();
         Dependents saveDependents = dependentsRepository.save(dependents);

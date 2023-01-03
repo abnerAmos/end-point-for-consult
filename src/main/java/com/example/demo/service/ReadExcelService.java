@@ -5,6 +5,7 @@ import com.example.demo.model.Client;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@Service
 public class ReadExcelService {
 
     public List<Client> readFile(final String nameFile) {

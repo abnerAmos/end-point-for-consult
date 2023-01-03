@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.controller.request.Request;
+import com.example.demo.request.RequestClient;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DependentsRepository;
 import com.example.demo.service.CreateClientService;
@@ -23,8 +23,8 @@ public class PostController {
     * Na construção do objeto fui Utilizado @Builder */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/create")
-    public ResponseEntity<?> createClient(@RequestBody Request request) {
-        return createClientService.createClient(request);
+    public ResponseEntity<?> createClient(@RequestBody RequestClient requestClient) {
+        return createClientService.createClient(requestClient);
     }
 
 }

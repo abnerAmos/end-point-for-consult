@@ -1,4 +1,4 @@
-package com.example.demo.controller.request;
+package com.example.demo.request;
 
 import com.example.demo.enums.Status;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class Request implements Serializable {
+public class RequestClient implements Serializable {
 
     private String name;
     private Integer age;

@@ -2,12 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Client;
 import com.example.demo.repository.ClientRepository;
-import com.example.demo.repository.DependentsRepository;
 import com.example.demo.service.CreateExcelService;
 import com.example.demo.service.GenerateJsonService;
 import com.example.demo.service.ReadExcelService;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,14 +18,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/* Informa e transforma a classe em um Controller */
 @RestController
 @RequestMapping("/test")
 @RequiredArgsConstructor
 public class GetController {
 
+    private final GenerateJsonService generateJsonService;
     private final ClientRepository clientRepository;
-    private final DependentsRepository dependentsRepository;
+    private final ReadExcelService readExcelService;
+    private final CreateExcelService createExcelService;
 
     /* Apenas um retorno em texto String */
     @GetMapping
@@ -61,7 +60,7 @@ public class GetController {
 
     /* Filtrando a busca de um Objeto com stream */
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/find-with-param")
+    @GetMapping("/find-stream")
     public List<Client> findParam() {
         List<Client> listClient = clientRepository.findAll();
         return listClient.stream().filter(e -> e.getAge() >= 50).collect(Collectors.toList());
@@ -72,7 +71,6 @@ public class GetController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/create-excel/{fileName}")
     public List<Client> generateExcel(@PathVariable String fileName) throws IOException {
-        CreateExcelService createExcelService = new CreateExcelService();
         String extension = ".xlsx";
         createExcelService.createFile(fileName + extension, clientRepository.findAll());
         return clientRepository.findAll();
@@ -83,7 +81,6 @@ public class GetController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/read-excel/{fileName}")
     public List<Client> readExcel(@PathVariable String fileName) throws IOException {
-        ReadExcelService readExcelService = new ReadExcelService();
         String extension = ".xlsx";
         return readExcelService.readFile(fileName + extension);
     }
@@ -91,10 +88,14 @@ public class GetController {
     /*  Captura um Objeto e o converte em .JSON, e o armazena no Header
     como anexo (attachment), para Download.     */
     @GetMapping("/download/{id}")
-    // Caso não queira retorno, mudar o método para void, inserir @ResponseStatus
-    public ResponseEntity<?> downloadJson(@PathVariable Integer id, HttpServletResponse response) {
-        GenerateJsonService generateJsonService = new GenerateJsonService();
+    public ResponseEntity<?> download(@PathVariable Integer id, HttpServletResponse response) {
         return generateJsonService.downloadJson(id, response);
+    }
+
+    // Busca e retorna apenas campos especifícados na Query
+    @GetMapping("/specs/{id}")
+    public ResponseEntity<?> test(@PathVariable int id) {
+        return ResponseEntity.ok(clientRepository.buscar(id));
     }
 
 }
