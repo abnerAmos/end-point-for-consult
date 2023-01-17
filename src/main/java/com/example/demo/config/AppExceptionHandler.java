@@ -14,7 +14,7 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(ClientNotFoundException.class)    // Informa qual Classe Exception será tratada.
     public ResponseEntity<String> clientNotFoundException(ClientNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());      // Retorno HTTP junto com a Menssagem informada no Controller
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());      // Retorno HTTP junto com a Menssagem informada no Controller
     }
 
 }

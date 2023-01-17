@@ -8,9 +8,11 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@Builder
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 
 @Entity // Transforma a Classe em Bean do Spring, necessário para persistir dados.
 @Table(name = "client")   // Necessário informa o nome da tabela que irá persistir.

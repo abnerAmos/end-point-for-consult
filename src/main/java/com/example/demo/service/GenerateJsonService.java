@@ -17,6 +17,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +29,12 @@ public class GenerateJsonService {
     @SneakyThrows
     public ResponseEntity<?> downloadJson(Integer id, HttpServletResponse response) {
 
-        Client client = clientRepository.findByStatusAndId(Status.ATIVO, id);
-        if (client == null)
+        Optional<Client> client = clientRepository.findByStatusAndId(Status.ATIVO, id);
+        if (client.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CLIENTE NÃO ENCONTRADO");
 
         List<Dependents> dependent = dependentsRepository
-                .findByClient(client);               // Faz a busca a vinculada com cliente por FK
+                .findByClient(client.get());               // Faz a busca a vinculada com cliente por FK
 
         List<JsonRequestClient.JsonRequestDependent> requestDependents = new ArrayList<>(); // Cria uma Listagem de Dependentes
         for (Dependents request : dependent){                                       /* Armazena Todos os Dependentes
@@ -45,10 +46,10 @@ public class GenerateJsonService {
         }
 
         JsonRequestClient requestClient = JsonRequestClient.builder()       // Armazena e molda o resultado
-                .name(client.getName())
-                .age(client.getAge())
-                .email(client.getEmail())
-                .status(client.getStatus())
+                .name(client.get().getName())
+                .age(client.get().getAge())
+                .email(client.get().getEmail())
+                .status(client.get().getStatus())
                 .dependents(requestDependents)
                 .build();
 
