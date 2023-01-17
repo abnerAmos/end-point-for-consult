@@ -26,4 +26,17 @@ public class UpdateClientServiceImpl {
 
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
+
+    public ResponseEntity<?> updateClient(Integer id, RequestClient request) {
+
+        Client client = clientRepository.findByStatusAndId(Status.ATIVO, id)
+                .orElseThrow(() -> new ClientNotFoundException("CLIENTE NÃO ENCONTRADO!"));
+
+        client.setName(request.getName());
+        client.setAge(request.getAge());
+        client.setEmail(request.getEmail());
+        clientRepository.save(client);
+
+        return new ResponseEntity<>(client, HttpStatus.OK);
+    }
 }

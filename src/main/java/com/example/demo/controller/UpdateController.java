@@ -13,6 +13,7 @@ public class UpdateController {
 
     private final UpdateClientServiceImpl updateClientService;
 
+    // Altera apenas uma informação de um recurso
     @PatchMapping("/update-name/{id}")
     public ResponseEntity<?> updateName(@PathVariable Integer id,
                                         @RequestBody RequestClient name) {
@@ -20,4 +21,11 @@ public class UpdateController {
         return updateClientService.updateName(id, name);
     }
 
+    // Altera um recurso (2 ou mais informações)
+    @PutMapping("/update-client/{id}")
+    public ResponseEntity<?> updateClient(@PathVariable Integer id,
+                                          @RequestBody RequestClient client) {
+
+        return updateClientService.updateClient(id, client);
+    }
 }
