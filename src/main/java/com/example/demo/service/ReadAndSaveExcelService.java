@@ -2,10 +2,14 @@ package com.example.demo.service;
 
 import com.example.demo.enums.Status;
 import com.example.demo.model.Client;
+import com.example.demo.repository.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.ExcelNumberFormat;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,7 +19,10 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class ReadExcelService {
+public class ReadAndSaveExcelService {
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     public List<Client> readFile(final String nameFile) {
         log.info("Lendo arquivo {}", nameFile);
@@ -29,7 +36,6 @@ public class ReadExcelService {
             for (Row line : firstTab) {
                 if (++countLine == 1) continue;
                 Client client = Client.builder()
-                        .id((int) line.getCell(0).getNumericCellValue())
                         .name(line.getCell(1).getStringCellValue())
                         .age((int) line.getCell(2).getNumericCellValue())
                         .email(line.getCell(3).getStringCellValue())
@@ -37,6 +43,9 @@ public class ReadExcelService {
                         .build();
                 clients.add(client);
                 log.info("Lendo Cliente {}", client);
+
+                clientRepository.saveAll(clients);
+                log.info("Adicionando cliente na DB");
             }
 
         } catch (FileNotFoundException e) {

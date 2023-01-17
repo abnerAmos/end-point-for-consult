@@ -4,7 +4,7 @@ import com.example.demo.model.Client;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.service.CreateExcelService;
 import com.example.demo.service.GenerateJsonService;
-import com.example.demo.service.ReadExcelService;
+import com.example.demo.service.ReadAndSaveExcelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +25,7 @@ public class GetController {
 
     private final GenerateJsonService generateJsonService;
     private final ClientRepository clientRepository;
-    private final ReadExcelService readExcelService;
+    private final ReadAndSaveExcelService readAndSaveExcelService;
     private final CreateExcelService createExcelService;
 
     /* Apenas um retorno em texto String */
@@ -82,7 +82,7 @@ public class GetController {
     @GetMapping("/read-excel/{fileName}")
     public List<Client> readExcel(@PathVariable String fileName) throws IOException {
         String extension = ".xlsx";
-        return readExcelService.readFile(fileName + extension);
+        return readAndSaveExcelService.readFile(fileName + extension);
     }
 
     /*  Captura um Objeto e o converte em .JSON, e o armazena no Header
