@@ -59,9 +59,8 @@ public class GenerateJsonService {
                                                                                 no formato JSON, e converte em bytes em seguida */
 
         response.setContentType("application/json");                            // Seta o tipo de conteúdo
-        String headerKey = "Content-Disposition";
+        String headerKey = "Content-Disposition";                               // Onde é armazenao o anexo
         String headerValue = "attachment; filename= " + "file_test_" + id + ".json";
-
         response.setHeader(headerKey, headerValue);
 
         ServletOutputStream output = response.getOutputStream();                // Cria uma saída

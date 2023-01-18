@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,17 +70,17 @@ public class GetController {
     /* Criando um arquivo Excel, a partir dos dados em Banco,
     informando apenas um nome para o arquivo */
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/create-excel/{fileName}")
-    public List<Client> generateExcel(@PathVariable String fileName) throws IOException {
-        String extension = ".xlsx";
-        createExcelService.createFile(fileName + extension, clientRepository.findAll());
-        return clientRepository.findAll();
+    @GetMapping(value = "/download-excel/{fileName}")
+    public void downloadExcel(@PathVariable String fileName,
+                                                      HttpServletResponse response) throws IOException {
+        fileName = fileName + ".xlsx";
+        createExcelService.createFile(fileName, clientRepository.findAll(), response);
     }
 
     /* Lendo um arquivo Excel, a partir de um ".xlsx",
     informando apenas o nome do arquivo */
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/read-excel/{fileName}")
+    @GetMapping("/read-excel-and-save/{fileName}")
     public List<Client> readExcel(@PathVariable String fileName) throws IOException {
         String extension = ".xlsx";
         return readAndSaveExcelService.readFile(fileName + extension);
@@ -87,8 +88,8 @@ public class GetController {
 
     /*  Captura um Objeto e o converte em .JSON, e o armazena no Header
     como anexo (attachment), para Download.     */
-    @GetMapping("/download/{id}")
-    public ResponseEntity<?> download(@PathVariable Integer id, HttpServletResponse response) {
+    @GetMapping("/download-json/{id}")
+    public ResponseEntity<?> downloadJson(@PathVariable Integer id, HttpServletResponse response) {
         return generateJsonService.downloadJson(id, response);
     }
 
