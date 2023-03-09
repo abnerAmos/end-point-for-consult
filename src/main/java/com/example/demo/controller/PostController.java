@@ -20,7 +20,7 @@ public class PostController {
 
     /* Inserindo dados na tabela
     * Necessário no corpo do Json, informar os dados a serem inclusos no Banco conforme Model
-    * Na construção do objeto fui Utilizado @Builder */
+    * Na construção do objeto foi Utilizado @Builder do Lombok */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/create")
     public ResponseEntity<?> createClient(@RequestBody RequestClient requestClient) {
