@@ -19,12 +19,11 @@ public class CreateClientService {
 
     public ResponseEntity<?> createClient(RequestClient requestClient) {
 
-        Client client = Client.builder()
-                .name(requestClient.getName())
-                .age(requestClient.getAge())
-                .email(requestClient.getEmail())
-                .status(requestClient.getStatus())
-                .build();
+        Client client = new Client();
+                client.setName(requestClient.getName());
+                client.setAge(requestClient.getAge());
+                client.setEmail(requestClient.getEmail());
+                client.setStatus(requestClient.getStatus());
         Client saveClient = clientRepository.save(client);
 
         Dependents dependents = Dependents.builder()

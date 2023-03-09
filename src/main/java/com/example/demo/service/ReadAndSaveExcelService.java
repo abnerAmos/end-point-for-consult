@@ -35,12 +35,11 @@ public class ReadAndSaveExcelService {
             int countLine = 0;
             for (Row line : firstTab) {
                 if (++countLine == 1) continue;
-                Client client = Client.builder()
-                        .name(line.getCell(1).getStringCellValue())
-                        .age((int) line.getCell(2).getNumericCellValue())
-                        .email(line.getCell(3).getStringCellValue())
-                        .status(Status.valueOf(line.getCell(4).getStringCellValue()))
-                        .build();
+                Client client = new Client();
+                client.setName(line.getCell(1).getStringCellValue());
+                client.setAge((int) line.getCell(2).getNumericCellValue());
+                client.setEmail(line.getCell(3).getStringCellValue());
+                client.setStatus(Status.valueOf(line.getCell(4).getStringCellValue()));
                 clients.add(client);
                 log.info("Lendo Cliente {}", client);
 

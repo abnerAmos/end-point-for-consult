@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +24,8 @@ public class Dependents implements Serializable {
 
     /* O Lado esquerdo "ONE" é o da Classe <-
         O Lado direito "ONE" é o da Entidade -> */
-    @OneToOne // Informando qual o tipo de relação da tabela
+    @JsonIgnore // Ignora o campo na construção do Json, caso não inserido gera um loop na resposta, pois uma classe chama a outra
+    @ManyToOne // Informando qual o tipo de relação da tabela
     @JoinColumn(name = "client_id", referencedColumnName = "id") // "name" é a FK, "reference..." é a Referencia
     private Client client;
 }

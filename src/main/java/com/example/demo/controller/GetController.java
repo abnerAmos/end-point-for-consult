@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Client;
+import com.example.demo.model.Dependents;
 import com.example.demo.repository.ClientRepository;
+import com.example.demo.repository.DependentsRepository;
 import com.example.demo.service.CreateExcelService;
 import com.example.demo.service.GenerateJsonService;
 import com.example.demo.service.ReadAndSaveExcelService;
@@ -29,6 +31,8 @@ public class GetController {
     private final ReadAndSaveExcelService readAndSaveExcelService;
     private final CreateExcelService createExcelService;
 
+    private final DependentsRepository dependentsRepository;
+
     /* Apenas um retorno em texto String */
     @GetMapping
     public ResponseEntity<String> greeting() {
@@ -37,9 +41,15 @@ public class GetController {
 
     /* Busca um objeto por ID */
     @ResponseStatus(HttpStatus.OK) // Forma de retorno de Status HTTP
-    @GetMapping("/get/{id}")
-    public Optional<Client> findById(@PathVariable("id") Integer id) {
+    @GetMapping("/client/{id}")
+    public Optional<Client> findClientById(@PathVariable("id") Integer id) {
         return clientRepository.findById(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK) // Forma de retorno de Status HTTP
+    @GetMapping("/dependent/{id}")
+    public Optional<Dependents> findDependentsById(@PathVariable("id") Integer id) {
+        return dependentsRepository.findById(id);
     }
 
     /* Retorna a lista de Objetos */

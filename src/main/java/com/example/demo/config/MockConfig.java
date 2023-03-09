@@ -25,11 +25,12 @@ public class MockConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Client c1 = new Client(null, "Fulano de Tal", 30, "fulano@email.com", Status.ATIVO);
+        Client c1 = new Client(null, "João das Couves", 30, "fulano@email.com", Status.ATIVO);
 
-        Dependents d1 = new Dependents(null, "Filho Fulano", 10, c1);
+        Dependents d1 = new Dependents(null, "Joãozinho das Couves", 10, c1);
+        Dependents d2 = new Dependents(null, "Mariazinha das Couves", 8, c1);
 
         clientRepository.saveAll(Arrays.asList(c1));
-        dependentsRepository.saveAll(Arrays.asList(d1));
+        dependentsRepository.saveAll(Arrays.asList(d1, d2));
     }
 }
