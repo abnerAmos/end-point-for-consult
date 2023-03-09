@@ -12,7 +12,7 @@ import java.util.Optional;
 
 // Transforma a Classe em Bean do Spring, necessário para persistir dados.
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Integer> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
 
     // Busca personalizada com Spring Data com Especificações JPA
     Optional<Client> findByStatusAndId(Status status, Integer id);

@@ -37,7 +37,7 @@ public class CreateExcelService {
                 var linha = spreadsheet.createRow(countNumberLine++);
                 addCell(linha, 0, e.getId());
                 addCell(linha, 1, e.getName());
-                addCell(linha, 2, e.getAge());
+                addCell(linha, 2, e.getAge().longValue());
                 addCell(linha, 3, e.getEmail());
                 addCell(linha, 4, String.valueOf(e.getStatus()));
             }
@@ -72,7 +72,7 @@ public class CreateExcelService {
         cell.setCellValue(valor);
     }
 
-    private void addCell(Row line, int column, int valor) {
+    private void addCell(Row line, int column, Long valor) {
         Cell cell = line.createCell(column);
         cell.setCellValue(valor);
     }

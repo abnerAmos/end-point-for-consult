@@ -13,12 +13,12 @@ import java.io.Serializable;
 @Builder
 
 @Entity // Transforma a Classe em Bean do Spring, necessário para persistir dados.
-@Table(name = "dependents")   // Necessário informa o nome da tabela que irá persistir.
+@Table(name = "tb_dependents")   // Necessário informa o nome da tabela que irá persistir.
 public class Dependents implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name_dp;
     private Integer age_dp;
 

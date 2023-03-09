@@ -14,12 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity // Transforma a Classe em Bean do Spring, necessário para persistir dados.
-@Table(name = "client")   // Necessário informa o nome da tabela que irá persistir.
+@Table(name = "tb_client")   // Necessário informa o nome da tabela que irá persistir.
 public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
     private Integer age;
     private String email;
@@ -29,7 +29,10 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client") // informa por qual atributo esta sendo mapeado mapeado
     private List<Dependents> dependents;
 
-    public Client(Integer id, String name, Integer age, String email, Status status) {
+    @OneToOne(mappedBy = "client")
+    private Address address;
+
+    public Client(Long id, String name, Integer age, String email, Status status) {
         this.id = id;
         this.name = name;
         this.age = age;

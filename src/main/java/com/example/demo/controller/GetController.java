@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Address;
 import com.example.demo.model.Client;
 import com.example.demo.model.Dependents;
+import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DependentsRepository;
 import com.example.demo.service.CreateExcelService;
@@ -30,8 +32,8 @@ public class GetController {
     private final ClientRepository clientRepository;
     private final ReadAndSaveExcelService readAndSaveExcelService;
     private final CreateExcelService createExcelService;
-
     private final DependentsRepository dependentsRepository;
+    private final AddressRepository addressRepository;
 
     /* Apenas um retorno em texto String */
     @GetMapping
@@ -42,14 +44,20 @@ public class GetController {
     /* Busca um objeto por ID */
     @ResponseStatus(HttpStatus.OK) // Forma de retorno de Status HTTP
     @GetMapping("/client/{id}")
-    public Optional<Client> findClientById(@PathVariable("id") Integer id) {
+    public Optional<Client> findClientById(@PathVariable("id") Long id) {
         return clientRepository.findById(id);
     }
 
-    @ResponseStatus(HttpStatus.OK) // Forma de retorno de Status HTTP
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/dependent/{id}")
     public Optional<Dependents> findDependentsById(@PathVariable("id") Integer id) {
         return dependentsRepository.findById(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/address/{id}")
+    public Optional<Address> findAddressById(@PathVariable("id") Long id) {
+        return addressRepository.findById(id);
     }
 
     /* Retorna a lista de Objetos */
