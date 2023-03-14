@@ -2,18 +2,15 @@ package com.example.demo.service;
 
 import com.example.demo.client.ViaCepClient;
 import com.example.demo.model.Address;
-import com.example.demo.repository.AddressRepository;
-import com.example.demo.request.RequestClient;
 import com.example.demo.model.Client;
 import com.example.demo.model.Dependents;
+import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DependentsRepository;
-import com.example.demo.request.RequestDependents;
+import com.example.demo.request.RequestClient;
 import com.example.demo.response.CreateClientResponse;
 import com.example.demo.response.ViaCepResponse;
-import com.google.gson.*;
 import lombok.RequiredArgsConstructor;
-import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,7 +26,6 @@ public class CreateClientService {
     private final DependentsRepository dependentsRepository;
     private final AddressRepository addressRepository;
     private final ViaCepClient viaCepClient;
-
 
     public ResponseEntity<?> createClient(RequestClient requestClient) {
 
