@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,7 +15,9 @@ public class RequestClient implements Serializable {
     private Integer age;
     private String email;
     private Status status;
+    private String cep;
+    private String number;
 
-    private String name_dp;
-    private Integer age_dp;
+    private List<RequestDependents> dependents;
+
 }
