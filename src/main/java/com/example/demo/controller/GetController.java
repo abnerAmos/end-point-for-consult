@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.enums.Status;
 import com.example.demo.model.Address;
 import com.example.demo.model.Client;
 import com.example.demo.model.Dependents;
@@ -38,6 +39,13 @@ public class GetController {
     @GetMapping
     public ResponseEntity<String> greeting() {
         return ResponseEntity.ok("Hello World"); // Forma de retorno de Status HTTP
+    }
+
+    @GetMapping("/custom-find/{id}")
+    public ResponseEntity<List<Client>> customFind(@PathVariable Long id,
+                                             @RequestParam Status status) {
+        List<Client> clients = clientRepository.find(id, status);
+        return ResponseEntity.ok().body(clients);
     }
 
     /* Busca um objeto por ID */
