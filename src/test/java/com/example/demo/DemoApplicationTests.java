@@ -15,7 +15,7 @@ class ServiceApplicationTests {
 	private int port;
 
 	@Test
-	void mustReturnStatusOk_WhenConsultKitchen() {
+	void mustReturnStatusOk_WhenConsultList() {
 		RestAssured
 			.given()
 				.basePath("/test/list")

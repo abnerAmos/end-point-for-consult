@@ -39,4 +39,17 @@ public class UpdateClientServiceImpl {
 
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
+
+    public Client updateClientMock(Long id, RequestClient request) {
+
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new ClientNotFoundException("CLIENTE NÃO ENCONTRADO!"));
+
+        client.setName(request.getName());
+        client.setAge(request.getAge());
+        client.setEmail(request.getEmail());
+        clientRepository.save(client);
+
+        return client;
+    }
 }

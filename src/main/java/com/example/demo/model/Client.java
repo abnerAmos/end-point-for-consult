@@ -40,8 +40,8 @@ public class Client implements Serializable {
     @Enumerated(EnumType.STRING) // Anotação para converter um ENUM para busca ou persistencia
     private Status status;
 
-    @OneToMany(mappedBy = "client")
-    @ToString.Exclude // informa por qual atributo esta sendo mapeado mapeado
+    @OneToMany(mappedBy = "client") // informa por qual atributo esta sendo mapeado mapeado
+    @ToString.Exclude
     private List<Dependents> dependents;
 
     @OneToOne(mappedBy = "client")
